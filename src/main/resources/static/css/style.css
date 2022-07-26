@@ -1,0 +1,132 @@
+.container {
+    flex-direction: column;
+    min-height:100vh;
+    max-width: none !important;
+    padding: 0 !important;
+}
+
+.site-header {
+    border-bottom:solid 1px #ff0000;
+    width:100%;
+}
+
+.site-contents {
+    flex: 1 0 auto;
+    min-height: 0%;
+    padding: 0 0 60px;
+}
+
+.archive-section {
+    line-height: 1.8;
+    padding: 60px 0;
+    width: 100%;
+}
+
+@media screen and (max-width: 960px) {
+    .archive-section {
+        padding: 40px 30px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .archive-section {
+        padding: 40px 20px;
+    }
+}
+
+.site-title {
+    color: #583820;
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0 0 40px;
+    text-align: center;
+}
+
+@media screen and(max-width:767px) {
+    .site-title {
+        font-size: 26px;
+        margin: 0 0 30px;
+    }
+}
+
+.store-contents {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0 auto;
+    max-width: 1280px;
+    padding: 0 50px;
+}
+
+@media screen and (max-width:960px) {
+    .store-contents {
+        margin: 0 -15px;
+        padding: 0;
+    }
+}
+
+.flex {
+    display: flex;
+}
+
+.store-contents li {
+    padding: 0 25px;
+    margin: 0 0 50px;
+    width: 25%;
+}
+
+@media screen and (max-width:767px) {
+    .store-contents li {
+        width: 33.3333%;
+        margin: 0 0 40px;
+    }
+}
+
+@media screen and (max-width:599px) {
+    .store-contents li {
+        width: 50%;
+    }
+
+    .store-archive-title {
+        font-size: 14px;
+    }
+}
+
+.store-archive {
+    flex-direction: column-reverse;
+}
+
+.store-archive-a {
+    color: #333;
+}
+
+.store-archive-title {
+    font-size: 16px;
+    margin: 10px 0 0;
+    text-align: center;
+}
+
+.store-archive-img-a {
+    border: solid 1px #f4f4f4;
+    border-radius: 50%;
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+
+.store-archive-img-a img {
+    height: 100%;
+    transition: .3s;
+    vertical-align: middle;
+    width: 100%;
+}
+
+.site-footer {
+    text-align:center;
+    margin: auto 0 0;
+    background:#ff0000;
+    color:rgb(0, 0, 0);
+    padding-top:15px;
+    font-weight:bold;
+}
