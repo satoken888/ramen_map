@@ -19,7 +19,7 @@
         <header class="site-header">
             <nav class="navbar navbar-expand-sm navbar-light bg-light">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Navbar</a>
+                    <a class="navbar-brand" href="#">喜多方ラーメン店一覧</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -28,11 +28,18 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-sm-0">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                <a class="nav-link active" aria-current="page" href="#">ホーム</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Link</a>
+                                <a class="nav-link" href="#">お知らせ</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">喜多方ラーメン会について</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">お問い合わせ</a>
+                            </li>
+                            <!--
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">
@@ -50,6 +57,7 @@
                             <li class="nav-item">
                                 <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                             </li>
+                            -->
                         </ul>
                         <form class="d-flex">
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -61,13 +69,44 @@
         </header>
         <div class="site-contents">
             <main class="front-main flex">
+                <section class="carousel">
+                    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                          <div class="carousel-item active">
+                            <img th:src="@{/img/mv01.jpg}" class="d-block w-100" alt="...">
+                          </div>
+                          <div class="carousel-item">
+                            <img th:src="@{/img/mv02.jpg}" class="d-block w-100" alt="...">
+                          </div>
+                          <div class="carousel-item">
+                            <img th:src="@{/img/cocco.jpg}" class="d-block w-100" alt="...">
+                          </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Next</span>
+                        </button>
+                      </div>
+                </section>
+                <section class="news-section">
+                    <h1>お知らせ</h1>
+                    <ul>
+                        <li>8/10 喜多方プラザにて・・・</li>
+                        <li>8/17 曽我製麺にて・・・</li>
+                        <li>8/26 ラーメン館本館にて・・・</li>
+                    </ul>
+                </section>
                 <section class="archive-section">
                     <div class="site-title">
                         <h1>喜多方ラーメン店一覧</h1>
                     </div>
                     <ul class="flex store-contents">
                         <li th:each="store : ${storeInfo}">
-                            <article class="flex store-archive">
+                            <article class="flex store-archive" data-bs-toggle="modal" data-bs-target="#exampleModal" th:attr="data-bs-target='#storeInfoModal' + ${store.id}">
                                 <h2 class="store-archive-title">
                                     <a href="#" class="store-archive-a">
                                         [[${store.storeName}]]
@@ -77,9 +116,43 @@
                                     <img th:src="@{/img/ramen_icon.png}" alt="${store.storeName}">
                                 </a>
                             </article>
+
+                            <!-- Modal -->
+                            <div class="modal fade " id="exampleModal" th:attr="id='storeInfoModal' + ${store.id},aria-labelledby='storeInfoModal' + ${store.id} + 'Label'" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel" th:attr="id='storeInfoModal' + ${store.id} + 'Label'">[[${store.storeName}]]</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            おすすめメニュー：<br>
+
+                                            住所：[[${store.address}]]<br>
+                                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3158.618379495414!2d139.86941741443164!3d37.65817502663403!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f8ab6573f7be421%3A0x1d2b79b16c445b13!2z44GL44Gp5bGL6aOf5aCC!5e0!3m2!1sja!2sjp!4v1658997809512!5m2!1sja!2sjp" width="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                            電話番号：<a th:href="'tel:' + ${store.tel}" th:text="${store.tel}"></a><br>
+                                            定休日：[[${store.holiday}]]<br>
+                                            営業時間：[[${store.businessHour}]]<br>
+                                            駐車場台数：〇台<br>近くに有料駐車場有
+                                            支払方法：現金、カード、PayPay使えます！<br>
+                                            座席数：カウンター〇席<br>
+                                            店内画像：<br>
+
+                                            <br>
+                                            最終更新日：[[${store.updateDate}]]
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
                     </ul>
-
+                    <!--
                     <table class="table table-hover">
                         <tbody>
                             <tr th:each="store: ${storeInfo}">
@@ -89,6 +162,7 @@
                             </tr>
                         </tbody>
                     </table>
+                    -->
                 </section>
             </main>
         </div>

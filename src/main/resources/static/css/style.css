@@ -5,6 +5,18 @@
     padding: 0 !important;
 }
 
+#carouselExampleControls {
+    width:80%;
+    margin:0 auto 30px auto;
+}
+
+@media screen and (max-width:768px) {
+    #carouselExampleControls {
+        width:100%;
+        margin-bottom:20px;
+    } 
+}
+
 .site-header {
     border-bottom:solid 1px #ff0000;
     width:100%;
@@ -14,6 +26,19 @@
     flex: 1 0 auto;
     min-height: 0%;
     padding: 0 0 60px;
+}
+
+.news-section {
+    text-align:center;
+}
+
+.news-section ul {
+    width:300px;
+    margin:0 auto;
+}
+
+.news-section ul li {
+    text-align:left;
 }
 
 .archive-section {
@@ -64,7 +89,9 @@
         padding: 0;
     }
 }
-
+.front-main.flex {
+    flex-direction: column;
+}
 .flex {
     display: flex;
 }
