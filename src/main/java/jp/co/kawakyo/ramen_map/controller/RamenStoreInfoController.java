@@ -1,13 +1,20 @@
 package jp.co.kawakyo.ramen_map.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import jp.co.kawakyo.ramen_map.model.entity.StoreEntity;
+import jp.co.kawakyo.ramen_map.model.entity.StoreInfoEntity;
 import jp.co.kawakyo.ramen_map.model.service.StoreService;
 
 @Controller
@@ -25,6 +32,30 @@ public class RamenStoreInfoController {
         //店舗情報を画面へ渡す
         model.addAttribute("storeInfo", storeInfolist);
         return "index";
+    }
+
+    @RequestMapping("/store/update")
+    @ResponseBody
+    public StoreInfoEntity updateStoreinfo(@RequestParam("storeId") String storeId,@RequestParam("updateDate") String updateDate,@RequestParam("openFlg") String openFlg ) {
+        StoreInfoEntity rtn = null;
+
+        //バリデーションチェック
+        if(!StringUtils.isEmpty(storeId) && !StringUtils.isEmpty(updateDate) && !StringUtils.isEmpty(openFlg)) {
+            try {
+                SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+                //パラメータに合致するレコードを取得する
+                StoreInfoEntity entity = storeService.findOneStoreInfo(Integer.valueOf(storeId), format.parse(updateDate));
+                //リクエストの内容でエンティティの情報を書き換える
+                entity.setOpenflg(Integer.valueOf(openFlg));
+                entity.setStoreid(Integer.valueOf(storeId));
+                entity.setDate(format.parse(updateDate));
+                //更新処理を実施する
+                rtn = storeService.saveStoreInfo(entity);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        } 
+        return rtn;
     }
 
 }
