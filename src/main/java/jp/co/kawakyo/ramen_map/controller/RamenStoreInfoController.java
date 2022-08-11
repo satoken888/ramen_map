@@ -36,25 +36,45 @@ public class RamenStoreInfoController {
 
     @RequestMapping("/store/update")
     @ResponseBody
-    public StoreInfoEntity updateStoreinfo(@RequestParam("storeId") String storeId,@RequestParam("updateDate") String updateDate,@RequestParam("openFlg") String openFlg ) {
+    public StoreInfoEntity updateStoreinfo(@RequestParam("storeId") String storeId,@RequestParam("salesDate") String salesDate,@RequestParam("openFlg") String openFlg ) {
         StoreInfoEntity rtn = null;
 
         //バリデーションチェック
-        if(!StringUtils.isEmpty(storeId) && !StringUtils.isEmpty(updateDate) && !StringUtils.isEmpty(openFlg)) {
+        if(!StringUtils.isEmpty(storeId) && !StringUtils.isEmpty(salesDate) && !StringUtils.isEmpty(openFlg)) {
             try {
                 SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
                 //パラメータに合致するレコードを取得する
-                StoreInfoEntity entity = storeService.findOneStoreInfo(Integer.valueOf(storeId), format.parse(updateDate));
+                StoreInfoEntity entity = storeService.findOneStoreInfo(Integer.valueOf(storeId), format.parse(salesDate));
                 //リクエストの内容でエンティティの情報を書き換える
                 entity.setOpenflg(Integer.valueOf(openFlg));
                 entity.setStoreid(Integer.valueOf(storeId));
-                entity.setDate(format.parse(updateDate));
+                entity.setDate(format.parse(salesDate));
                 //更新処理を実施する
                 rtn = storeService.saveStoreInfo(entity);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
         } 
+        return rtn;
+    }
+
+    @RequestMapping("/store/salesState")
+    @ResponseBody
+    public String showSalesState(@RequestParam("storeId") String storeId,@RequestParam("salesDate") String salesDate ) {
+        String rtn = "";
+
+        //バリデーションチェック
+        if(!StringUtils.isEmpty(storeId) && !StringUtils.isEmpty(salesDate)) {
+            SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+            try {
+                StoreInfoEntity res = storeService.findOneStoreInfo(Integer.valueOf(storeId), format.parse(salesDate));
+                rtn = String.valueOf(res.getOpenflg());
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
         return rtn;
     }
 
