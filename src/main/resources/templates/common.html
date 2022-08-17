@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="meta_header(title,links,scripts)">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="福島県喜多方市に所在する喜多方ラーメン取り扱い事業者をまとめたポータルサイトです。食べられるラーメンの種類や観光の際に欠かせない駐車場の情報等、わかりやすくまとめております。">
+    <meta name="keywords" content="喜多方ラーメン,喜多方,福島,ラーメン,醤油ラーメン,醤油,ご当地ラーメン,3大ラーメン">
+
+
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title th:text="${title}+' | 喜多方ラーメンマップ'">喜多方ラーメンマップ</title>
+
+    <th:block th:replace="${links} ?: _" />
+    <th:block th:replace="${scripts} ?: _" />
+</head>
+
+<body>
+    <header class="site-header" th:fragment="header">
+        <nav class="navbar navbar-expand-sm navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">喜多方ラーメン店一覧</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/ramen_map" th:href="@{/}">ホーム</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/ramen_map/store/salesStates" th:href="@{/store/salesStates}">各店営業時間</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" >お知らせ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">喜多方ラーメン会について</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">お問い合わせ</a>
+                        </li>
+                        <!--
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Dropdown
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                        </li>
+                        -->
+                    </ul>
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <footer th:fragment="footer" class="site-footer">
+        <p class="copyright">copyright 喜多方ラーメンブランドプロジェクト all rights reserved.</p>
+    </footer>
+
+    <div th:fragment="footer_script">
+        <!-- Bootstrap Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    </div>
+</body>
+</html>

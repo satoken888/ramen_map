@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ja">
+
+<head th:replace="common :: meta_header('トップページ',~{::link},~{::script})">
+
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery-ui-i18n.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
+</head>
+
+<body>
+    <div class="container flex">
+        <div th:replace="common::header"></div>
+
+        <div class="site-contents">
+            <main class="front-main flex">
+                <section class="stateTableArea">
+                    <h1 class="mt30 pl40">■営業情報一覧</h1>
+                    <div class="table-responsive">
+                        <table id="salesStateTable" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>名前</th>
+                                    <th th:each="searchDate : ${searchDateList}">
+                                        [[${#dates.format(searchDate,'MM/dd')}]]</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="record : ${tableRecord}" th:object="${record}">
+                                    <th th:text="*{storeName}"></th>
+                                    <td th:text="*{SalesDiv01}=='1'? '営業' : '休'"
+                                        th:class="*{SalesDiv01}=='1' ? 'open' : 'close'"></td>
+                                    <td th:text="*{SalesDiv02}=='1'? '営業' : '休'"
+                                        th:class="*{SalesDiv02}=='1' ? 'open' : 'close'"></td>
+                                    <td th:text="*{SalesDiv03}=='1'? '営業' : '休'"
+                                        th:class="*{SalesDiv03}=='1' ? 'open' : 'close'"></td>
+                                    <td th:text="*{SalesDiv04}=='1'? '営業' : '休'"
+                                        th:class="*{SalesDiv04}=='1' ? 'open' : 'close'"></td>
+                                    <td th:text="*{SalesDiv05}=='1'? '営業' : '休'"
+                                        th:class="*{SalesDiv05}=='1' ? 'open' : 'close'"></td>
+                                    <td th:text="*{SalesDiv06}=='1'? '営業' : '休'"
+                                        th:class="*{SalesDiv06}=='1' ? 'open' : 'close'"></td>
+                                    <td th:text="*{SalesDiv07}=='1'? '営業' : '休'"
+                                        th:class="*{SalesDiv07}=='1' ? 'open' : 'close'"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </main>
+        </div>
+        <div th:replace="common::footer"></div>
+    </div>
+    <div th:replace="common::footer_script"></div>
+    <script type="text/javascript">
+        $(function () {
+
+            $("#salesStateTable")
+                .DataTable(
+                    {
+
+                        //日本語化
+                        "language": {
+                            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Japanese.json"
+                        },
+
+                        // 件数切替機能 無効
+                        lengthChange: false,
+                        // ページング機能 無効
+                        paging: false,
+                        //再表示の際は再度構築
+                        destroy: true
+
+                    });
+        });
+    </script>
+</body>
+
+</html>
